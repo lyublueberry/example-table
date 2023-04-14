@@ -6,7 +6,7 @@
     <div class="table-column">
       <div class="table-column__cell column-cell" v-for="column in columns" :key="column.id"
         :style="{ maxWidth: column.width }">
-        <span class="column-cell__name">{{ column.label }}</span>
+        <p class="column-cell__name">{{ column.label }}</p>
         <div class="table-row">
           <div class="table-row__cell row-cell" v-for="row in rows" :key="row.id">
             <span>{{ row[column.prop] }}</span>
@@ -66,10 +66,10 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 24px;
 
     &__cell {
       width: 100%;
-      padding: 12px 0;
       border: 1px solid currentColor;
       text-align: center;
     }
@@ -81,6 +81,7 @@ export default {
     .column-cell {
       &__name {
         font-weight: 600;
+        padding: 12px 0;
       }
     }
 
