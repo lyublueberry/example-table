@@ -3,14 +3,25 @@
     <div class="data-table__filter">
       <ui-money v-model="moneyFilter" />
     </div>
-    <div class="table-column">
-      <div class="table-column__cell column-cell" v-for="column in columns" :key="column.id"
-        :style="{ maxWidth: column.width }">
-        <p class="column-cell__name">{{ column.label }}</p>
-        <div class="table-row">
-          <div class="table-row__cell row-cell" v-for="row in rows" :key="row.id">
-            <span>{{ row[column.prop] }}</span>
+    <div class="laptop-table">
+      <div class="table-column">
+        <div class="table-column__cell column-cell" v-for="column in columns" :key="column.id"
+          :style="{ maxWidth: column.width }">
+          <p class="column-cell__name">{{ column.label }}</p>
+          <div class="table-row">
+            <div class="table-row__cell row-cell" v-for="row in rows" :key="row.id">
+              <span>{{ row[column.prop] }}</span>
+            </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-table">
+      <div class="mobile-table__item mobile-item" v-for="row in rows" :key="row.id" >
+        <div class="mobile-item__row item-row" v-for="column in columns" :key="column.id">
+          <p class="item-row__name">{{ column.label }}</p>
+          <p class="item-row__value">{{ row[column.prop] }}</p>
         </div>
       </div>
     </div>
@@ -49,6 +60,11 @@ export default {
   },
   methods: {
 
+  },
+  watch: {
+    widthScreen(newValue) {
+      console.log(`yes, computed property changed: ${newValue}`);
+    },
   },
 };
 </script>
