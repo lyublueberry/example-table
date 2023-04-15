@@ -1,0 +1,41 @@
+.data-table {
+    &__filter {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 24px;
+    }
+  
+    .table-column {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+  
+      &__cell {
+        width: 100%;
+        border: 1px solid currentColor;
+        text-align: center;
+      }
+  
+      &__cell:not(:last-child) {
+        border-right: transparent;
+      }
+  
+      .column-cell {
+        &__name {
+          font-weight: 600;
+          padding: 12px 0;
+        }
+      }
+  
+    }
+  
+    .table-row {
+      .row-cell {
+        padding: 12px 0;
+        border-top: 1px solid currentColor;
+  
+      }
+    }
+  }
