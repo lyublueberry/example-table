@@ -1,9 +1,5 @@
 <template>
-  <input
-    type="text"
-    v-model="valueInput"
-    class="ui-money"
-  />
+  <input type="text" v-model="valueInput" @change="filteredNames()" class="ui-money" />
 </template>
 
 <script>
@@ -21,7 +17,21 @@ export default {
   data() {
     return {
       valueInput: '',
+      oldNum: '',
     };
+  },
+  computed: {
+  },
+
+  methods: {
+    filteredNames() {
+      if (/[а-яё]+|[a-z]+|[A-Z]+|[А-ЯЁ]/g.test(this.valueInput)) {
+        this.valueInput = '';
+      } else {
+        this.valueInput = this.valueInput.replace(',', '.');
+        this.valueInput = (Number(this.valueInput).toLocaleString('ru-RU')).replace(',', '.');
+      }
+    },
   },
 };
 </script>

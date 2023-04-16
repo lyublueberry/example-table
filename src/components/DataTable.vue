@@ -26,13 +26,11 @@
     </div>
     <div class="data-table__paginator">
       <ui-pagination v-model="page" :pages="pageCount" :countRowsOnPage="countRowsOnPage" />
-    </div> <div class="">{{ tttt() }}</div>
+    </div>
   </div>
 </template>
 
 <script>
-
-import getPayments from '@/mocks/getPayments';
 
 export default {
 
@@ -66,14 +64,7 @@ export default {
     },
   },
   methods: {
-    tttt() {
-      getPayments().then((result) => console.log(result.data[0].date));
-    },
-  },
-  watch: {
-    widthScreen(newValue) {
-      console.log(`yes, computed property changed: ${newValue}`);
-    },
+
   },
 };
 </script>

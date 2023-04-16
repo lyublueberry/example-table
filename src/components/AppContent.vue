@@ -16,13 +16,14 @@
         </template>
       </ui-alert>
 
-      <data-table :rows="data" :columns="columns" />
+      <data-table :rows="rows" :columns="columns" />
     </template>
   </main>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import getPayments from '@/mocks/getPayments';
 
 export default {
 
@@ -51,6 +52,7 @@ export default {
         width: '35%',
       },
     ],
+    rows: [],
   }),
 
   computed: {
@@ -63,12 +65,30 @@ export default {
 
   created() {
     this.load();
+    this.getRows();
   },
 
   methods: {
     ...mapActions([
       'load',
     ]),
+    getRows() {
+      return Array.from(getPayments().then((result) => {
+        result.data.forEach((item) => {
+          const newDate = new Date(item.date);
+          const newDay = String(newDate.getDate());
+          const newMonth = String(newDate.getMonth());
+          const newYear = String(newDate.getFullYear());
+          let formateDate = '';
+          formateDate = `${newDay}.${newMonth}.${newYear}`;
+          const newMoney = item.money.toLocaleString('ru-RU');
+          item.date = formateDate;
+          item.money = newMoney;
+        });
+        this.rows = result.data;
+        console.log(this.rows);
+      }));
+    },
   },
 };
 </script>
