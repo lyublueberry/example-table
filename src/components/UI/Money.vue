@@ -1,5 +1,5 @@
 <template>
-  <input type="text" v-model="valueInput" @change="filteredNames()" class="ui-money" />
+  <input type="text" v-model="valueInput" @input="$emit('valueChange', $event.target.value)" @change="filteredNames" class="ui-money" />
 </template>
 
 <script>

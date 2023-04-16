@@ -72,12 +72,15 @@ export default {
     ...mapActions([
       'load',
     ]),
+    isLonelyNum() {
+
+    },
     getRows() {
       return Array.from(getPayments().then((result) => {
         result.data.forEach((item) => {
           const newDate = new Date(item.date);
-          const newDay = String(newDate.getDate());
-          const newMonth = String(newDate.getMonth());
+          const newDay = newDate.getDate();
+          const newMonth = newDate.getMonth();
           const newYear = String(newDate.getFullYear());
           let formateDate = '';
           formateDate = `${newDay}.${newMonth}.${newYear}`;
@@ -86,7 +89,6 @@ export default {
           item.money = newMoney;
         });
         this.rows = result.data;
-        console.log(this.rows);
       }));
     },
   },

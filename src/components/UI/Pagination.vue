@@ -1,12 +1,7 @@
 <template>
   <div v-if="show" class="ui-pagination">
-    <a
-      v-for="item in items"
-      :key="item.label"
-      class="ui-pagination__item"
-      :class="{ 'ui-pagination__item_disabled': item.disabled }"
-      @click="goto(item.to)"
-    >
+    <a v-for="item in items" :key="item.label" class="ui-pagination__item"
+      :class="{ 'ui-pagination__item_disabled': item.disabled }" @click="goto(item.to)">
       {{ item.label }}
     </a>
   </div>
@@ -64,7 +59,6 @@ export default {
       if (page === this.value) {
         return;
       }
-
       this.$emit('input', page);
     },
   },

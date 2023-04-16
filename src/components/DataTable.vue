@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="data-table__paginator">
-      <ui-pagination v-model="page" :pages="pageCount" :countRowsOnPage="countRowsOnPage" />
+      <ui-pagination v-model="page" :pages="pageCount"/>
     </div>
   </div>
 </template>
@@ -55,15 +55,14 @@ export default {
 
   computed: {
     pageCount() {
-      console.log(Math.ceil(this.rows.length / this.pageSize));
       return Math.ceil(this.rows.length / this.pageSize);
     },
-    countRowsOnPage() {
-      console.log(Math.ceil(this.rows.length / this.pageCount));
-      return Math.ceil(this.rows.length / this.pageCount);
-    },
+
   },
   methods: {
+
+  },
+  watch: {
 
   },
 };
