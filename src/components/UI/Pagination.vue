@@ -11,7 +11,11 @@
 export default {
 
   name: 'UiPagination',
-
+  data() {
+    return {
+      pageNumber: 0,
+    };
+  },
   props: {
     value: {
       type: Number,
