@@ -1,7 +1,7 @@
 <template>
   <div class="data-table">
     <div class="data-table__filter">
-      <ui-money v-model="moneyFilter" />
+      <ui-money v-model="moneyFilter" @valueChange="tratata" />
     </div>
     <div class="laptop-table">
       <div class="table-column">
@@ -51,6 +51,7 @@ export default {
     pageSize: 4,
     moneyFilter: 0,
     currentPage: 1,
+    serachMoney: '',
   }),
 
   computed: {
@@ -63,10 +64,18 @@ export default {
       const dataPage = this.rows.slice(startIndex, endIndex);
       return dataPage;
     },
+    filteredMoney() {
+      console.log(this.paginatedData.filter((el) => el.money <= this.serachMoney));
+      return this.paginatedData.filter((el) => el.money === this.serachMoney);
+    },
   },
   methods: {
     isCurrentPage(valueCurrentPage) {
       this.currentPage = valueCurrentPage;
+    },
+    tratata(val) {
+      console.log(typeof val);
+      this.serachMoney = val;
     },
   },
 };
