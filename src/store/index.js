@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import api from '@/api';
+import APIHandler from '../APIHandler';
 
 Vue.use(Vuex);
 
@@ -29,13 +30,20 @@ export default new Vuex.Store({
 
   actions: {
     async load({ commit }, params = {}) {
+      const payments = localStorage.getItem('payments');
+      if (payments !== null) {
+        commit('setState', { isCached: true, data: JSON.parse(payments) });
+        return;
+      }
+
       commit('setState', { isLoading: true });
 
       try {
-        const { data } = await api.getPayments(params);
+        const { data } = await APIHandler.getPayments(params);
 
         if (Array.isArray(data)) {
           commit('setState', { data });
+          localStorage.setItem('payments', JSON.stringify(data));
         }
       } catch (e) {
         // eslint-disable-next-line no-alert

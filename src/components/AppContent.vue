@@ -55,6 +55,12 @@ export default {
     rows: [],
   }),
 
+  watch: {
+    data(newData, oldData) {
+      this.getRows(newData);
+    },
+  },
+
   computed: {
     ...mapState([
       'isLoading',
@@ -65,31 +71,26 @@ export default {
 
   created() {
     this.load();
-    this.getRows();
   },
 
   methods: {
     ...mapActions([
       'load',
     ]),
-    isLonelyNum() {
-
-    },
-    getRows() {
-      return Array.from(getPayments().then((result) => {
-        result.data.forEach((item) => {
-          const newDate = new Date(item.date);
-          const newDay = newDate.getDate();
-          const newMonth = newDate.getMonth();
-          const newYear = String(newDate.getFullYear());
-          let formateDate = '';
-          formateDate = `${newDay}.${newMonth}.${newYear}`;
-          const newMoney = item.money.toLocaleString('ru-RU');
-          item.date = formateDate;
-          item.money = newMoney;
-        });
-        this.rows = result.data;
-      }));
+    getRows(data) {
+      this.rows = data.map((datum) => {
+        const item = { ...datum };
+        const newDate = new Date(item.date);
+        const newDay = newDate.getDate();
+        const newMonth = newDate.getMonth();
+        const newYear = String(newDate.getFullYear());
+        let formateDate = '';
+        formateDate = `${newDay}.${newMonth}.${newYear}`;
+        const newMoney = item.money.toLocaleString('ru-RU');
+        item.date = formateDate;
+        item.money = newMoney;
+        return item;
+      });
     },
   },
 };
