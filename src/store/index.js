@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import api from '@/api';
 import APIHandler from '../APIHandler';
 
 Vue.use(Vuex);
@@ -51,6 +50,11 @@ export default new Vuex.Store({
       } finally {
         commit('setState', { isLoading: false });
       }
+    },
+    async clearCache({ commit }, params = {}) {
+      const payments = await APIHandler.getPayments(params);
+      localStorage.clear();
+      commit('setState', { isCached: false, data: payments });
     },
   },
 });
