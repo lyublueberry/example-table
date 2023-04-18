@@ -10,7 +10,7 @@
           <p>You can clear cache and load data again.</p>
         </template>
         <template #footer>
-          <ui-button type="primary">
+          <ui-button @click="clearCache" type="primary">
             Clear cache
           </ui-button>
         </template>
@@ -23,7 +23,6 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import getPayments from '@/mocks/getPayments';
 
 export default {
 
@@ -76,6 +75,7 @@ export default {
   methods: {
     ...mapActions([
       'load',
+      'clearCache',
     ]),
     getRows(data) {
       this.rows = data.map((datum) => {
@@ -91,6 +91,9 @@ export default {
         item.money = newMoney;
         return item;
       });
+    },
+    handlerClearCache() {
+      this.clearCache();
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <input type="text" v-model="valueInput" @input="$emit('valueChange', $event.target.value)" @change="filteredNames" class="ui-money" />
+  <input type="text" v-model.trim="valueInput" class="ui-money" />
 </template>
 
 <script>
@@ -9,28 +9,26 @@ export default {
 
   props: {
     value: {
-      type: Number,
+      type: [Number, String],
       require: true,
     },
   },
-
-  data() {
-    return {
-      valueInput: '',
-      oldNum: '',
-    };
-  },
   computed: {
-  },
-
-  methods: {
-    filteredNames() {
-      if (/[а-яё]+|[a-z]+|[A-Z]+|[А-ЯЁ]/g.test(this.valueInput)) {
-        this.valueInput = '';
-      } else {
-        this.valueInput = this.valueInput.replace(',', '.');
-        this.valueInput = (Number(this.valueInput).toLocaleString('ru-RU')).replace(',', '.');
-      }
+    valueInput: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        let formateValue = value;
+        if (/[а-яё]+|[a-z]+|[A-Z]+|[А-ЯЁ]/g.test(formateValue)) {
+          formateValue.replace('');
+        } else {
+          formateValue = ((parseFloat(formateValue)).toLocaleString('ru-RU')).replace(',', '.');
+        }
+        if (value !== formateValue) {
+          this.$emit('input', formateValue);
+        }
+      },
     },
   },
 };
