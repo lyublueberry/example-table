@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="data-table__paginator">
-      <ui-pagination v-model="page" :pages="pageCount" @input="isCurrentPage" />
+      <ui-pagination v-model="page" :pages="pageCount" @input="setCurrentPage" />
     </div>
   </div>
 </template>
@@ -67,11 +67,11 @@ export default {
   },
   watch: {
     moneyFilter(newValue, oldValue) {
-      this.paginatedData.filter((el) => Number(el.money) <= Number(this.moneyFilter));
+      this.paginatedData.filter((el) => el.money <= this.moneyFilter);
     },
   },
   methods: {
-    isCurrentPage(valueCurrentPage) {
+    setCurrentPage(valueCurrentPage) {
       this.currentPage = valueCurrentPage;
     },
   },
