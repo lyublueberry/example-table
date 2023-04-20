@@ -10,7 +10,7 @@ export default {
   props: {
     value: {
       type: [Number, String],
-      require: true,
+      required: true,
     },
   },
   computed: {
