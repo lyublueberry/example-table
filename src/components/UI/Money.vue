@@ -16,17 +16,17 @@ export default {
   computed: {
     valueInput: {
       get() {
-        return this.value.toLocaleString('ru-RU');
+        return parseFloat(this.value).toLocaleString('ru-RU');
       },
       set(value) {
-        let formateValue = value;
-        if (/[а-яё]+|[a-z]+|[A-Z]+|[А-ЯЁ]/g.test(formateValue)) {
-          formateValue.replace('');
+        let formattedValue =  value.replace(',', '.');
+         if (isNaN(formattedValue)) {
+          formattedValue = '';
         } else {
-          formateValue = (parseFloat(formateValue)).replace(',', '.');
+          formattedValue = parseFloat(formattedValue).toFixed(2);
         }
-        if (value !== formateValue) {
-          this.$emit('input', formateValue);
+        if (value !== formattedValue) {
+          this.$emit('input', formattedValue);
         }
       },
     },
