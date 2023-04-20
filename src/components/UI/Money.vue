@@ -4,9 +4,7 @@
 
 <script>
 export default {
-
   name: 'UiMoney',
-
   props: {
     value: {
       type: [Number, String],
@@ -19,8 +17,8 @@ export default {
         return parseFloat(this.value).toLocaleString('ru-RU');
       },
       set(value) {
-        let formattedValue =  value.replace(',', '.');
-         if (isNaN(formattedValue)) {
+        let formattedValue = value.replace(',', '.');
+        if (Number.isNaN(formattedValue)) {
           formattedValue = '';
         } else {
           formattedValue = parseFloat(formattedValue).toFixed(2);
