@@ -9,7 +9,7 @@
           :style="{ maxWidth: column.width }">
           <p class="column-cell__name">{{ column.label }}</p>
           <div class="table-row">
-            <div class="table-row__cell row-cell" v-for="row in paginatedData" :key="row.id">
+            <div class="table-row__cell row-cell" v-for="row in filterMoney" :key="row.id">
               <span>{{ row[column.prop] }}</span>
             </div>
           </div>
@@ -64,10 +64,12 @@ export default {
       const dataPage = this.rows.slice(startIndex, endIndex);
       return dataPage;
     },
-  },
-  watch: {
-    moneyFilter(newValue, oldValue) {
-      this.paginatedData.filter((el) => el.money <= this.moneyFilter);
+    filterMoney() {
+      if (this.moneyFilter > 0) {
+        console.log(this.paginatedData, this.moneyFilter);
+        const filterData = this.paginatedData.filter((el) => parseFloat(el.money.replace(/\s/g, '')) <= this.moneyFilter);
+        return filterData;
+      } return this.paginatedData;
     },
   },
   methods: {
