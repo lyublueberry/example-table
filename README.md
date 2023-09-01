@@ -1,5 +1,3 @@
-# Vuejs test
-
 ## Project setup
 ```
 yarn install
